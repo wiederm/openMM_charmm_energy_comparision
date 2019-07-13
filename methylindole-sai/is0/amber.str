@@ -1,0 +1,6 @@
+!update E14FAC 0.83333333
+energy E14FAC 0.83333333
+set ccelecfac = 0.99997081505487725338D0
+echo @ccelecfac
+scalar charge mult @ccelecfac sele atom * * * end
+

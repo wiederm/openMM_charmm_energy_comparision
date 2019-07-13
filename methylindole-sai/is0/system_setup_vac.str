@@ -1,0 +1,13 @@
+* setup common options for vac simulations
+*
+
+
+set ctonnb 1000.
+set ctofnb 1200.
+set cutnb  1400.
+set cutim  @cutnb
+
+energy inbfrq -1 imgfrq -1 cutnb @cutnb cutim @cutim -
+        ctonnb @ctonnb ctofnb @ctofnb -
+        atom cdie swit vatom vswit e14fac 0.83333333
+
