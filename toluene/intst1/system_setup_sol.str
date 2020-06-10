@@ -1,0 +1,20 @@
+* setup common options for solv simulation
+*
+ 
+set ctonnb 10.
+set ctofnb 12.
+set cutnb  14.
+set cutim  @cutnb
+ 
+crystal define cubic @bxl @bxl @bxl 90.00 90.00 90.00
+crystal build Noper 0 cutoff @cutim
+image byres xcen 0.0 ycen 0.0 zcen 0.0 sele segi solv end
+ 
+shak bonh tol 1.0e-6 para fast sele segi solv end
+energy inbfrq -1 imgfrq -1 cutnb @cutnb cutim @cutim -
+        atom vatom vswitch e14fac 0.83333333 -
+        ctonnb @ctonnb ctofnb @ctofnb ewal pmew kapp 0.34 spline order 6 -
+        fftx 32 ffty 32 fftz 32 qcor 0.0
+        
+
+ 

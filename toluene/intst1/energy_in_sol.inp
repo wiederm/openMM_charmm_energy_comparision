@@ -1,0 +1,35 @@
+* Uses psf at step i  
+* to calculate energy for dcd generated with psf from step j
+* mw, 10.06.2017
+*
+
+stream toppar_charmm.str
+
+open read unit 10 card name @{psf}.oldpsf
+read psf  unit 10 card
+open read card unit 10 name @{crd}.crd
+read coor unit 10 card
+
+! avoid c.o.m. drift of solute by geo restraint
+!mmfp
+!geo rcm sphere maxgeo 500 -
+!     xref 0.0 yref 0.0 zref 0.0 xdir 1.0 ydir 1.0 zdir 1.0 -
+!     harmonic force 0.1 select .not. hydrogen .and. resname @{residue_name} end
+!end
+
+stream system_setup_sol.str
+
+open read file unit 41 name lig_in_waterbox.dcd
+traj query unit 41
+set nframes 500 !?nfile
+traj firstu 41 nunit 1
+set idx 1
+label loop1
+traj read
+energy lrc bycb
+echo ?ener
+calc idx = @idx + 1
+if @idx .lt. @nframes goto loop1
+        
+  
+stop
